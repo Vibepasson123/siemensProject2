@@ -15,7 +15,7 @@ Please make sure you have the following things are installed in your system.
 
 ## Installation
 
-Use the link to clone the project 💁 [click here.](https://github.com/Vibepasson123/siemensProject)
+Use the link to clone the project 💁 [click here.](https://github.com/Vibepasson123/siemensProject2)
 
 ```bash
 *Once Clone In your local repository.
@@ -32,13 +32,13 @@ Get a List of users.
 ### Api Endoints 
 ##### Method
 ```bash
-   GET   http://127.0.0.1:8000/api/users
+   GET  http://127.0.0.1:8000/api/users
 ```
 
 If you are running on a custom domain then 
 ##### Method
 ```bash
-   GET    http://customeDomin.com/api/users
+   GET   http://customeDomin.com/api/users
 ```
 
 ##### Api Response
@@ -76,7 +76,7 @@ Get user by Id.
 
 ##### Method
 ```bash
-   GET       http://127.0.0.1:8000/api/user/id 'put your id as int' ex   http://127.0.0.1:8000/api/user/2 
+   GET  http://127.0.0.1:8000/api/user/id 'put your id as int' ex   http://127.0.0.1:8000/api/user/2 
 ```
 
 ##### Api Response
@@ -156,7 +156,7 @@ if User already exist
 }
 
 ```
-If invalid json
+If invalid JSON
 
 ```bash
 {
@@ -165,7 +165,7 @@ If invalid json
     "requestBody": null
 }
 ```
-If invlaid E-mail
+If invalid E-mail
 
 ```bash
 {
@@ -182,7 +182,7 @@ If invlaid E-mail
 Edit User 
 ##### Method
 ```bash
-   PUT   http://127.0.0.1:8000/api/edit/id
+   PUT  http://127.0.0.1:8000/api/edit/id
 ```
 
 ##### Request body
