@@ -23,8 +23,6 @@ Use the link to clone the project 💁 [click here.](https://github.com/Vibepass
 *Run the 'command' "Symfony server:start"
 ```
 
-<img width="990" alt="Screenshot 2021-02-14 at 15 42 58" src="https://user-images.githubusercontent.com/33363433/107882061-3b80ef00-6edf-11eb-95ab-9c2a92ca710d.png">
-
 ## Usage
 
 Get a List of users. 
@@ -110,6 +108,8 @@ For POST and PUT endpoints we have to make sure the request body is in JSON form
 
 
 ---
+
+<img width="990" alt="Screenshot 2021-02-14 at 15 42 58" src="https://user-images.githubusercontent.com/33363433/107882061-3b80ef00-6edf-11eb-95ab-9c2a92ca710d.png">
 
 ##### Request body
   ```bash
