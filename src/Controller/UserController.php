@@ -16,9 +16,7 @@ class UserController extends AbstractController
      */
     public function index(): Response
     {
-        $users = null;
-        $users = $this->getData();
-        return $this->returnResponse(200, $users);
+        return $this->returnResponse(200, $this->getData());
     }
     /**
      * 
@@ -27,6 +25,9 @@ class UserController extends AbstractController
     public function findUser($id)
     {
         $user = $this->searchUser($id);
+        if (!isset($user)) {
+            return $this->returnResponse(400);
+        }
         return $this->returnResponse(200, $user);
     }
     /**
@@ -42,45 +43,41 @@ class UserController extends AbstractController
             return $this->returnResponse(400, $requestData);
         }
         $checkUser = $this->searchUser(null, $requestData['email']);
-       
+
         if ($checkUser) {
-            
+
             return $this->returnResponse(409, $checkUser);
         }
-      
+
 
         if (isset($this->getData()['users'])) {
             $userlist = $this->getData()['users'];
             $keysEmail = array_keys(array_column($userlist, 'email'), $requestData['email']);
-            $test='';
-            
-           if(isset($userlist['email'])){
-               ($userlist['email']==$requestData['email'])?$test= true:false;
-           }
-           
-            if(count($keysEmail)== 0 && $test){
+            $test = '';
+
+            if (isset($userlist['email'])) {
+                ($userlist['email'] == $requestData['email']) ? $test = true : false;
+            }
+
+            if (count($keysEmail) == 0 && $test) {
                 return $this->returnResponse(409, $requestData);
             }
-            
-            if(count(array_column($userlist, 'id'))<1)
-            {
-                $lastUserId =2;
-                
-            }else{
+
+            if (count(array_column($userlist, 'id')) < 1) {
+                $lastUserId = 2;
+            } else {
                 $lastUserId = max(array_column($userlist, 'id')) + 1;
             }
-            
         }
 
         $data = @simplexml_load_file($this->getParameter('data_dir') . '/users.xml');
-
         $character = $data->addChild('users');
         $character->addChild('id', $lastUserId);
         $character->addChild('name', $requestData['name']);
         $character->addChild('email', $requestData['email']);
-        file_put_contents($this->getParameter('data_dir') . '/users.xml', $data->asXML());   
 
-        return $this->returnResponse(200, $this->getData()['users']); 
+        file_put_contents($this->getParameter('data_dir') . '/users.xml', $data->asXML());
+        return $this->returnResponse(200, $this->getData()['users']);
     }
 
 
@@ -90,6 +87,11 @@ class UserController extends AbstractController
      */
     public function delete($id)
     {
+        if (!$this->searchUser($id)) {
+            return $this->returnResponse(404);
+        }
+
+
         $data = @simplexml_load_file($this->getParameter('data_dir') . '/users.xml');
         $index = 0;
         $i = 0;
@@ -102,7 +104,7 @@ class UserController extends AbstractController
         }
         unset($data->users[$index]);
         file_put_contents($this->getParameter('data_dir') . '/users.xml', $data->asXML());
-        return $this->json(['statusCode' => 200, 'statusText' => 'User Deleted Succesfully '], 200);
+        return $this->returnResponse(200, 'User Deleted Successfully');
     }
 
     /**
@@ -116,6 +118,7 @@ class UserController extends AbstractController
         $requestEmail = (isset($requestData['email'])) ? $this->valid_email($requestData['email']) : null;
         $i = 0;
         $getUser = $this->searchUser($id);
+
         if (!$getUser) {
             return $this->returnResponse(404, $requestData);
         }
@@ -127,6 +130,7 @@ class UserController extends AbstractController
         if ($checkUser = $this->searchUser(null, $requestData['email'])) {
             return $this->returnResponse(409, $checkUser);
         }
+
         foreach ($data->users as $user) {
             if ($user->id == $id) {
                 $user->email = ($requestEmail) ? $requestData['email'] : $user->email;
@@ -137,7 +141,6 @@ class UserController extends AbstractController
         }
 
         file_put_contents($this->getParameter('data_dir') . '/users.xml', $data->asXML());
-
         return $this->returnResponse(200, ['Old-Record' => $getUser, 'New-Record' => $this->searchUser($id)]);
     }
 
@@ -152,18 +155,15 @@ class UserController extends AbstractController
 
     private function searchUser($id = [], $email = [])
     {
-
         if (!isset($this->getData()['users'])) {
             return;
         }
 
         $data = $this->getData()['users'];
-
         $keysEmail = array_keys(array_column($data, 'email'), $email);
         $keys = array_keys(array_column($data, 'id'), $id);
 
         if (isset($id) && isset($keys)) {
-
             $users = array_map(function ($k) use ($data) {
                 return $data[$k];
             }, $keys);
@@ -171,7 +171,6 @@ class UserController extends AbstractController
         }
 
         if (isset($email) && isset($keysEmail)) {
-
             $users = array_map(function ($k) use ($data) {
                 return $data[$k];
             }, $keysEmail);

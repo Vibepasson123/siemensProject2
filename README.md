@@ -22,12 +22,9 @@ Use the link to clone the project 💁 [click here.](https://github.com/Vibepass
 *Open the terminal and go to the project folder in the terminal.
 *Run the 'command' "Symfony server:start"
 ```
-<<<<<<< HEAD
-This will start your project on the server. If you click the link it will open the welcome page but as it API project, we need to test on either postman or any API testing tool.
 
-=======
 <img width="990" alt="Screenshot 2021-02-14 at 15 42 58" src="https://user-images.githubusercontent.com/33363433/107882061-3b80ef00-6edf-11eb-95ab-9c2a92ca710d.png">
->>>>>>> 3ad360b23760d5a5974bf47c9fa6e0e999bb93ad
+
 ## Usage
 
 Get a List of users. 
@@ -35,20 +32,15 @@ Get a List of users.
 ### Api Endoints 
 ##### Method
 ```bash
-   GET 
+   GET   http://127.0.0.1:8000/api/users
 ```
-```bash
-    http://127.0.0.1:8000/api/users
-```
+
 If you are running on a custom domain then 
 ##### Method
 ```bash
-   GET 
+   GET    http://customeDomin.com/api/users
 ```
-```bash
-   http://customeDomin.com/api/users
 
-```
 ##### Api Response
 ```bash
 {
@@ -84,11 +76,9 @@ Get user by Id.
 
 ##### Method
 ```bash
-   GET 
+   GET       http://127.0.0.1:8000/api/user/id 'put your id as int' ex   http://127.0.0.1:8000/api/user/2 
 ```
-```bash
-    http://127.0.0.1:8000/api/user/id 'put your id as int' ex   http://127.0.0.1:8000/api/user/2 
-```
+
 ##### Api Response
 
 ```bash
@@ -109,11 +99,9 @@ Get user by Id.
 Create New User
 ##### Method
 ```bash
-   POST
+   POST   http://127.0.0.1:8000/api/new
 ```
-```bash
-    http://127.0.0.1:8000/api/new
-```
+
 ---
 **NOTE**
 
@@ -122,8 +110,6 @@ For POST and PUT endpoints we have to make sure the request body is in JSON form
 
 
 ---
-
-<img width="990" alt="Screenshot 2021-02-14 at 15 42 58" src="https://user-images.githubusercontent.com/33363433/107882061-3b80ef00-6edf-11eb-95ab-9c2a92ca710d.png">
 
 ##### Request body
   ```bash
@@ -194,13 +180,11 @@ If invlaid E-mail
 
 
 Edit User 
+##### Method
+```bash
+   PUT   http://127.0.0.1:8000/api/edit/id
+```
 
-```bash
-   PUT
-```
-```bash
-    http://127.0.0.1:8000/api/edit/id
-```
 ##### Request body
   ```bash
    {
@@ -287,6 +271,27 @@ Error -Invalid request body
     "requestBody": null
 }
 ```
+Delete User 
+##### Method
+```bash
+   Delete  http://127.0.0.1:8000/api/delete/id
+```
+
+success
+```bash
+    {
+    "statusCode": 200,
+    "statusText": "User Deleted Succesfully "
+    }
+```
+error
+```bash
+{
+    "statusCode": 404,
+    "statusText": "User not found",
+    "requestBody": []
+}
+```
 
 
 
@@ -298,12 +303,3 @@ Error -Invalid request body
 
 
 
-
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
