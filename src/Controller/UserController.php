@@ -122,14 +122,19 @@ class UserController extends AbstractController
         if (!$getUser) {
             return $this->returnResponse(404, $requestData);
         }
+        
 
-        if (!$this->valid_email($requestData['email'])) {
-            return $this->returnResponse(400, $requestData);
-        }
+       
+        if(isset($requestData['email'])){
+            if($requestEmail == null){
+                return $this->returnResponse(400, $requestData);
+            }
 
-        if ($checkUser = $this->searchUser(null, $requestData['email'])) {
-            return $this->returnResponse(409, $checkUser);
-        }
+            if ($checkUser = $this->searchUser(null, $requestData['email'])){
+                return $this->returnResponse(409, $checkUser);
+            }
+        };
+       
 
         foreach ($data->users as $user) {
             if ($user->id == $id) {
