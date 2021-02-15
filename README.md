@@ -113,6 +113,23 @@ Create New User
 For POST and PUT endpoints we have to make sure the request body is in JSON format and the request must have one header as "Content-Type" is set to application/JSON.
   If on postman then but the request body on raw as shown in the image and make a request.
 
+  In the chrome you can make request as 
+  ```bash
+
+  (async () => {
+  const rawResponse = await fetch('http://127.0.0.1:8000/api/new', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({email:'testman@test.com', name: 'helloman'})
+  });
+  const content = await rawResponse.json();
+
+  console.log(content);
+})();
+  ```
 
 ---
 
